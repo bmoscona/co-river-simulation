@@ -1,16 +1,68 @@
 ---
 title: "How much Colorado River water should states be using if we prioritized energy and the environment?"
-author: "Ben Moscona"
+author: "Ben Moscona and Shelby Smith"
 format: html
 editor: visual
 ---
 
 ## Introduction
 
-Introduce the problem: CO river water use, climate change will effect flows and drought in the future even more, we currently draw so much water that we are damaging the environment and ability to provide power in the future from dams. Briefly explain backdrop of CRC renegotiation/history and prior appropriation vs riparian rights doctrine.
+Introduce the problem: where is the CO river basin, which states, how long, big, CO river water use, climate change will effect flows and drought in the future even more, we currently draw so much water that we are damaging the environment and ability to provide power in the future from dams. Briefly explain backdrop of CRC renegotiation/history and prior appropriation vs riparian rights doctrine.
+
+Satellite Image of Colorado River Basin
 
 ```{r load dependencies}
 #| echo: false
 library(librarian)
 shelf(tidyverse)
+```
+
+## Visualize historical drought in the Colorado River Basin
+
+Put in a GEE timelapse of the three major reservoirs, as well as a satellite image of the river basin.
+
+Some words about how much the water has dropped in these three reservoirs and how much is needed for energy.
+
+## Environmental issues arising from excess water use
+
+No flows to the delta, species decline (picture of fish that have gone extinct in Mexico), pictures of the delta. Something about the damage to the environment from water use further upstream, like release of heavy metals, biodiversity loss, etc.
+
+```{r interactive map of historical water use by each state}
+
+```
+
+## Native American water rights (quantification/adjudication)
+
+Background on seniority of rights, some estimates and sources on water quantities that should be included
+
+```{r some graphs on indigenous water use}
+
+```
+
+## Historical Hydrology of CO River Basin
+
+```{r historical hydrology graphs}
+
+```
+
+## Simulating hydrologies using different climate scenarios
+
+```{r simulating hydrologies}
+
+```
+
+## Optimal water use from 2023-2050 using climate scenarios
+
+Energy, environment, and indigenous flows are fixed at a baseline, can flexibly add environmental and indigenous flows. Graph variation in optimal water use each year under different climate scenario (color), with graph showing sd in each year of optimal choice
+
+```{r water use optimization}
+
+```
+
+```{r variation in optimal water use graph}
+
+```
+
+```{r make simulation interactive using shiny}
+
 ```
