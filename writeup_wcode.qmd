@@ -1,0 +1,16 @@
+---
+title: "How much Colorado River water should states be using if we prioritized energy and the environment?"
+author: "Ben Moscona"
+format: html
+editor: visual
+---
+
+## Introduction
+
+Introduce the problem: CO river water use, climate change will effect flows and drought in the future even more, we currently draw so much water that we are damaging the environment and ability to provide power in the future from dams. Briefly explain backdrop of CRC renegotiation/history and prior appropriation vs riparian rights doctrine.
+
+```{r load dependencies}
+#| echo: false
+library(librarian)
+shelf(tidyverse)
+```
