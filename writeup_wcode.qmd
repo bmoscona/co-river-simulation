@@ -9,23 +9,50 @@ editor: visual
 
 Introduce the problem: where is the CO river basin, which states, how long, big, CO river water use, climate change will effect flows and drought in the future even more, we currently draw so much water that we are damaging the environment and ability to provide power in the future from dams. Briefly explain backdrop of CRC renegotiation/history and prior appropriation vs riparian rights doctrine.
 
-Satellite Image of Colorado River Basin
-
 ```{r load dependencies}
-#| echo: false
+#| include: false
 library(librarian)
-shelf(tidyverse)
+shelf(tidyverse, dataRetrieval, janitor, lubridate, scales, plotly, withr, tigris, leaflet, tmap, tmaptools)
 ```
 
 ## Visualize historical drought in the Colorado River Basin
 
-Put in a GEE timelapse of the three major reservoirs, as well as a satellite image of the river basin.
+GEE timelapses of Lake Powell and Lake Mead with graphs showing decline in water levels
+
+![Historical water extent in Lake Powell from 1984 to 2018, using the JRC Global Surface Water Layer (made using this [app](https://showcase.earthengine.app/view/jrc-global-surface-water-animation))](assets/lake_powell_detail1_wlegend.gif){fig-align="center"}
+
+```{r water level lake powell import}
+#| include: false
+# data from: https://www.usbr.gov/rsvrWater/HistoricalApp.html
+lake_powell_historical_levels <- read_csv("data/lake_powell_historical.csv") %>% 
+        clean_names() %>% 
+        mutate(date = dmy(date)) %>% 
+        filter(date > "1977-06-20")
+```
+
+```{r lake powell levels plot}
+lake_powell_levels <- lake_powell_historical_levels %>% 
+        ggplot(aes(date, storage_af)) +
+        geom_line() +
+        scale_y_continuous(labels = label_number(suffix = " M", scale = 1e-6)) +
+        labs(x = "Year", 
+             y = "Storage (Acre-Feet)",
+             title = "Historical Water Stored in Lake Powell") +
+        theme_minimal()
+
+with_options(list(digits = 3, scipen = 10), ggplotly(lake_powell_levels))
+
+```
+
+![Historical water extent in Lake Mead from 1984 to 2018, using the JRC Global Surface Water Layer (made using this [app](https://showcase.earthengine.app/view/jrc-global-surface-water-animation))](assets/lake_mead_wlegend.gif){fig-align="center"}
 
 Some words about how much the water has dropped in these three reservoirs and how much is needed for energy.
 
 ## Environmental issues arising from excess water use
 
 No flows to the delta, species decline (picture of fish that have gone extinct in Mexico), pictures of the delta. Something about the damage to the environment from water use further upstream, like release of heavy metals, biodiversity loss, etc.
+
+![Monthly Evapotranspiration (ET) in the Imperial Valley of CA. Note how in the summer months the fields turn deep blue (high ET). Data source: **OpenET CONUS Ensemble Monthly Evapotranspiration**](assets/imperial_valley_open_et.gif)
 
 ```{r interactive map of historical water use by each state}
 
@@ -35,13 +62,25 @@ No flows to the delta, species decline (picture of fish that have gone extinct i
 
 Background on seniority of rights, some estimates and sources on water quantities that should be included
 
-```{r some graphs on indigenous water use}
+Link to this HCN article: https://www.hcn.org/articles/colorado-river-basin-tribes-work-to-protect-their-water-rights
 
+```{r some graphs on indigenous water use}
+AIANNH <- tigris::native_areas()
+
+AIANNH_map <- tm_shape(AIANNH) +
+        tm_tiles(leaflet::providers$CartoDB.PositronNoLabels) +
+        tm_polygons() +
+        tm_text("NAME")
+
+AIANNH_map
+
+# map of tribes in the colorado river basin that have rights and how much?
+# % of people in each tribe with access to running water
 ```
 
 ## Historical Hydrology of CO River Basin
 
-```{r historical hydrology graphs}
+```{r historical SWE graphs from upper basin}
 
 ```
 
